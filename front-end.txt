@@ -1,0 +1,119 @@
+{
+    "interactionModel": {
+        "languageModel": {
+            "invocationName": "reminder",
+            "intents": [
+                {
+                    "name": "AMAZON.CancelIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.HelpIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.StopIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.NavigateHomeIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.FallbackIntent",
+                    "samples": []
+                },
+                {
+                    "name": "ReminderIntent",
+                    "slots": [],
+                    "samples": [
+                        "I am leaving",
+                        "I am going out",
+                        "what do i do",
+                        "my stuff",
+                        "did i remember everything",
+                        "did i forget anything",
+                        "what did I forget",
+                        "remind me everything",
+                        "bye",
+                        "Hey I'm leaving"
+                    ]
+                },
+                {
+                    "name": "ContinueIntent",
+                    "slots": [
+                        {
+                            "name": "responseYN",
+                            "type": "YesNo"
+                        }
+                    ],
+                    "samples": [
+                        "{responseYN}"
+                    ]
+                }
+            ],
+            "types": [
+                {
+                    "name": "YesNo",
+                    "values": [
+                        {
+                            "id": "0",
+                            "name": {
+                                "value": "no",
+                                "synonyms": [
+                                    "nope",
+                                    "no thanks",
+				    "bye"
+                                ]
+                            }
+                        },
+                        {
+                            "id": "1",
+                            "name": {
+                                "value": "yes",
+                                "synonyms": [
+                                    "of course",
+                                    "sure",
+                                    "yes please",
+                                    "yeah"
+                                ]
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        "dialog": {
+            "intents": [
+                {
+                    "name": "ContinueIntent",
+                    "confirmationRequired": false,
+                    "prompts": {},
+                    "slots": [
+                        {
+                            "name": "responseYN",
+                            "type": "YesNo",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.1391564424065.1158537818521"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "delegationStrategy": "ALWAYS"
+        },
+        "prompts": [
+            {
+                "id": "Elicit.Slot.1391564424065.1158537818521",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "you can say yes or no"
+                    }
+                ]
+            }
+        ]
+    }
+}
