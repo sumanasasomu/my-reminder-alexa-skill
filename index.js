@@ -2,7 +2,7 @@ const Alexa = require('ask-sdk');
 var c = 0;
 const SKILL_NAME = 'my buddy';
 const CONT_MSG = "Do you want me to give you some more reminders?";
-const REM_OVER = "Hey you are now ready to go! have a nice day. Bye";
+const REM_OVER = " Wooohooo! You are now ready to go! have a nice day. Goodbye";
 const HELP_MESSAGE = 'Hi,Just let me know if you are going out. say something like I\'m leaving or ask did I forget something and I\'ll remind you some stuff';
 const HELP_REPROMPT = 'let me know if you are leaving. I\'ll remind you some stuff' ;
 const STOP_MESSAGE = 'Goodbye!';
@@ -45,8 +45,9 @@ const reminderIntentHandler = {
     mySessionAttributes.count += 1;
     myAttributesManager.setSessionAttributes(mySessionAttributes);
     
-    if(c >= data.length){
-        const speechOutput = REM_OVER;
+    if(c === (data.length) - 1){
+      const randomReminder = data[c];
+        const speechOutput = randomReminder + REM_OVER;
         return handlerInput.responseBuilder
           .speak(speechOutput)
           .withShouldEndSession(true)
