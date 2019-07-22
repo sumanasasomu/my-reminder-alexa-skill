@@ -1,5 +1,12 @@
 const Alexa = require('ask-sdk');
-var c = -1;
+var c = 0;
+const SKILL_NAME = 'my buddy';
+const CONT_MSG = "Do you want me to give you some more reminders?";
+const REM_OVER = "Hey you are now ready to go! have a nice day. Bye";
+const HELP_MESSAGE = 'Hi,Just let me know if you are going out. say something like I\'m leaving or ask did I forget something and I\'ll remind you some stuff';
+const HELP_REPROMPT = 'let me know if you are leaving. I\'ll remind you some stuff' ;
+const STOP_MESSAGE = 'Goodbye!';
+
 var data = [
   'have the keys with you.',
   'make sure you turn off the lights.',
@@ -15,12 +22,6 @@ var data = [
   'close the curtains if needed.',
   'safety first. Take your helmet before leaving.'
 ];
-const SKILL_NAME = 'my buddy';
-const CONT_MSG = "Do you want me to give you some more reminders?";
-const REM_OVER = "Hey you are now ready to go! have a nice day. Bye";
-const HELP_MESSAGE = 'Hi,Just let me know if you are going out. say something like I\'m leaving or ask did I forget something and I\'ll remind you some stuff';
-const HELP_REPROMPT = 'let me know if you are leaving. I\'ll remind you some stuff' ;
-const STOP_MESSAGE = 'Goodbye!';
 
 const reminderIntentHandler = {
   canHandle(handlerInput) {
@@ -33,9 +34,11 @@ const reminderIntentHandler = {
 
     const myAttributesManager = handlerInput.attributesManager;
     var mySessionAttributes = myAttributesManager.getSessionAttributes();
-    if(c == -1){
+    console.log("c is: "+ c);
+    if(mySessionAttributes.count == undefined){
         mySessionAttributes.count = 0;
     }
+    console.log("sa count: "+ mySessionAttributes.count);
     c = mySessionAttributes.count;
     const responseBuilder = handlerInput.responseBuilder;
     console.log("prev value: " + c);
@@ -52,7 +55,7 @@ const reminderIntentHandler = {
     else{
       var speechOutput = "";
       const randomReminder = data[c];
-      if(c == 0){
+      if(c === 0){
         speechOutput = "hey, ";
       }
       speechOutput += randomReminder + CONT_MSG ;
@@ -136,6 +139,7 @@ function shuffle(myarray) {
     return myarray;
 }
 
+
 data = shuffle(data);
 
 const skillBuilder = Alexa.SkillBuilders.standard();
@@ -149,8 +153,3 @@ exports.handler = skillBuilder
   )
   .addErrorHandlers(ErrorHandler)
   .lambda();
-
-
-  /*
-  Ready to Go: A checklist reminder of things you need to do before leaving the house
-  */
