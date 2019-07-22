@@ -1,7 +1,7 @@
 {
     "interactionModel": {
         "languageModel": {
-            "invocationName": "reminder",
+            "invocationName": "my buddy",
             "intents": [
                 {
                     "name": "AMAZON.CancelIntent",
@@ -27,15 +27,18 @@
                     "name": "ReminderIntent",
                     "slots": [],
                     "samples": [
+                        "I'm ready to go",
+                        "ready to go",
+                        "remind me",
+                        "check list please",
+                        "read out the check list",
+                        "remind me stuff",
                         "I am leaving",
                         "I am going out",
                         "what do i do",
-                        "my stuff",
-                        "did i remember everything",
                         "did i forget anything",
                         "what did I forget",
                         "remind me everything",
-                        "bye",
                         "Hey I'm leaving"
                     ]
                 },
@@ -48,6 +51,10 @@
                         }
                     ],
                     "samples": [
+                        "{responseYN} don't give me any more reminders",
+                        "{responseYN} give me some more",
+                        "{responseYN} I want to hear some more",
+                        "{responseYN} don't want to hear anymore",
                         "{responseYN}"
                     ]
                 }
@@ -61,9 +68,12 @@
                             "name": {
                                 "value": "no",
                                 "synonyms": [
+                                    "do not",
+                                    "nawp",
+                                    "stop",
+                                    "don't",
                                     "nope",
-                                    "no thanks",
-				    "bye"
+                                    "no thanks"
                                 ]
                             }
                         },
@@ -72,6 +82,12 @@
                             "name": {
                                 "value": "yes",
                                 "synonyms": [
+                                    "ok please",
+                                    "yes, please",
+                                    "of course",
+                                    "yup",
+                                    "yeah",
+                                    "yea",
                                     "of course",
                                     "sure",
                                     "yes please",
