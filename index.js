@@ -1,11 +1,25 @@
 const Alexa = require('ask-sdk');
 var c = 0;
 const SKILL_NAME = 'my buddy';
-const CONT_MSG = "Do you want me to give you some more reminders?";
+const CONT_MSG = " Do you want me to give you some more reminders?";
 const REM_OVER = " Wooohooo! You are now ready to go! have a nice day. Goodbye";
 const HELP_MESSAGE = 'Hi,Just let me know if you are going out. say something like I\'m leaving or ask did I forget something and I\'ll remind you some stuff';
 const HELP_REPROMPT = 'let me know if you are leaving. I\'ll remind you some stuff' ;
 const STOP_MESSAGE = 'Goodbye!';
+
+function shuffle(myarray) {
+    let ctr = myarray.length;
+    let temp;
+    let index;
+    while (ctr > 0) {
+        index = Math.floor(Math.random() * ctr);
+        ctr--;
+        temp = myarray[ctr];
+        myarray[ctr] = myarray[index];
+        myarray[index] = temp;
+    }
+    return myarray;
+}
 
 var data = [
   'have the keys with you.',
@@ -22,6 +36,8 @@ var data = [
   'close the curtains if needed.',
   'safety first. Take your helmet before leaving.'
 ];
+
+data = shuffle(data);
 
 const reminderIntentHandler = {
   canHandle(handlerInput) {
@@ -126,22 +142,6 @@ const ErrorHandler = {
   },
 };
 
-function shuffle(myarray) {
-    let ctr = myarray.length;
-    let temp;
-    let index;
-    while (ctr > 0) {
-        index = Math.floor(Math.random() * ctr);
-        ctr--;
-        temp = myarray[ctr];
-        myarray[ctr] = myarray[index];
-        myarray[index] = temp;
-    }
-    return myarray;
-}
-
-
-data = shuffle(data);
 
 const skillBuilder = Alexa.SkillBuilders.standard();
 
