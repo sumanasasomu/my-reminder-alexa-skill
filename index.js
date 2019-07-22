@@ -1,4 +1,26 @@
 const Alexa = require('ask-sdk');
+var c = -1;
+var data = [
+  'have the keys with you.',
+  'make sure you turn off the lights.',
+  'Take the magazine if you feel like.',
+  'Take your Laptop with you if required.',
+  'check for your Phone. ',
+  'take the Umbrella if it is cloudy or raining. ',
+  'Stay hydrated. Take your bottle with you. ',
+  'Water your plants if you haven\'t.',
+  'Arrange food for your pets.',
+  'Consider turning off all the water.',
+  'Unplug toasters, computers etc.',
+  'close the curtains if needed.',
+  'safety first. Take your helmet before leaving.'
+];
+const SKILL_NAME = 'my buddy';
+const CONT_MSG = "Do you want me to give you some more reminders?";
+const REM_OVER = "Hey you are now ready to go! have a nice day. Bye";
+const HELP_MESSAGE = 'Hi,Just let me know if you are going out. say something like I\'m leaving or ask did I forget something and I\'ll remind you some stuff';
+const HELP_REPROMPT = 'let me know if you are leaving. I\'ll remind you some stuff' ;
+const STOP_MESSAGE = 'Goodbye!';
 
 const reminderIntentHandler = {
   canHandle(handlerInput) {
@@ -15,31 +37,30 @@ const reminderIntentHandler = {
         mySessionAttributes.count = 0;
     }
     c = mySessionAttributes.count;
-    
     const responseBuilder = handlerInput.responseBuilder;
     console.log("prev value: " + c);
     mySessionAttributes.count += 1;
     myAttributesManager.setSessionAttributes(mySessionAttributes);
     
-    if(c > 7){
-        const speechOutput = "Hey you are now ready to go! have a nice day. Bye";
-        const reprompt = "have a nice day! bye";
-        
+    if(c >= data.length){
+        const speechOutput = REM_OVER;
         return handlerInput.responseBuilder
           .speak(speechOutput)
-          .reprompt(reprompt)
-          .withSimpleCard(SKILL_NAME + speechOutput)
+          .withShouldEndSession(true)
           .getResponse();
     }
     else{
+      var speechOutput = "";
       const randomReminder = data[c];
-      const speechOutput = "Hey! " + randomReminder +  " Would you like me to give you some more reminders?";
-      const reprompt = "umm, Would you like me to give you some more reminders?";
+      if(c == 0){
+        speechOutput = "hey, ";
+      }
+      speechOutput += randomReminder + CONT_MSG ;
+      const reprompt = CONT_MSG;
     
       return handlerInput.responseBuilder
         .speak(speechOutput)
         .reprompt(reprompt)
-        .withSimpleCard(SKILL_NAME + 'Reminder', randomReminder)
         .getResponse();
     }
 
@@ -70,6 +91,7 @@ const ExitHandler = {
   handle(handlerInput) {
     return handlerInput.responseBuilder
       .speak(STOP_MESSAGE)
+      .withShouldEndSession(true)
       .getResponse();
   },
 };
@@ -100,38 +122,20 @@ const ErrorHandler = {
   },
 };
 
-function shuffle(array1) {
-    let ctr = array1.length;
+function shuffle(myarray) {
+    let ctr = myarray.length;
     let temp;
     let index;
-
     while (ctr > 0) {
         index = Math.floor(Math.random() * ctr);
         ctr--;
-        //swap
-        temp = array1[ctr];
-        array1[ctr] = array1[index];
-        array1[index] = temp;
+        temp = myarray[ctr];
+        myarray[ctr] = myarray[index];
+        myarray[index] = temp;
     }
-    return array1;
+    return myarray;
 }
 
-var c = -1;
-
-const SKILL_NAME = 'my-reminder';
-const HELP_MESSAGE = 'Hi,Just let me know if you are going out. say something like I\'m leaving or ask did I forget something and I\'ll remind you some stuff';
-const HELP_REPROMPT = 'What can I help you with?';
-const STOP_MESSAGE = 'Goodbye!';
-
-var data = [
-  'have the keys with you.',
-  'make sure you turn off the lights.',
-  'Take the magazine if you feel like.',
-  'Take your Laptop with you if required.',
-  'check for your Phone. ',
-  'take the Umbrella if it is cloudy or raining. ',
-  'Stay hydrated. Take your bottle with you. '
-];
 data = shuffle(data);
 
 const skillBuilder = Alexa.SkillBuilders.standard();
@@ -145,3 +149,8 @@ exports.handler = skillBuilder
   )
   .addErrorHandlers(ErrorHandler)
   .lambda();
+
+
+  /*
+  Ready to Go: A checklist reminder of things you need to do before leaving the house
+  */
