@@ -1,7 +1,7 @@
 const Alexa = require('ask-sdk');
 var c = 0;
 const SKILL_NAME = 'my buddy';
-const CONT_MSG = " Do you want me to give you some more reminders?";
+const CONT_MSG = " Want some more reminders?";
 const REM_OVER = " Wooohooo! You are now ready to go! have a nice day. Goodbye";
 const HELP_MESSAGE = 'Hi,Just let me know if you are going out. say something like I\'m leaving or ask did I forget something and I\'ll remind you some stuff';
 const HELP_REPROMPT = 'let me know if you are leaving. I\'ll remind you some stuff' ;
@@ -22,19 +22,19 @@ function shuffle(myarray) {
 }
 
 var data = [
-  'have the keys with you.',
-  'make sure you turn off the lights.',
+  'Have the keys with you.',
+  'Make sure you turn off the lights.',
   'Take the magazine if you feel like.',
   'Take your Laptop with you if required.',
-  'check for your Phone. ',
-  'take the Umbrella if it is cloudy or raining. ',
+  'Check for your Phone. ',
+  'Take the Umbrella if it is cloudy or raining. ',
   'Stay hydrated. Take your bottle with you. ',
   'Water your plants if you haven\'t.',
   'Arrange food for your pets.',
   'Consider turning off all the water.',
   'Unplug toasters, computers etc.',
-  'close the curtains if needed.',
-  'safety first. Take your helmet before leaving.'
+  'Close the windows and curtains',
+  'Safety first. Take your helmet before leaving.'
 ];
 
 data = shuffle(data);
